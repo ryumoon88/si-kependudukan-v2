@@ -41,7 +41,8 @@ class DatabaseSeeder extends Seeder
             ServiceRequirementSeeder::class,
             ServiceHasRequirementSeeder::class,
 
-            UserSeeder::class
+            UserSeeder::class,
+            SubmissionSeeder::class
         ]);
     }
 }

@@ -23,6 +23,15 @@ class ResidentSeeder extends Seeder
             'religion' => 'Islam',
             'blood_type' => 'A',
         ]);
-        Resident::factory(100)->create([]);
+
+        Resident::factory()->create([
+            'resident_birth_id' => 2,
+            'id_card_number' => '1370000000000002',
+            'email' => 'jilhanhaura@mail.com',
+            'religion' => 'Islam',
+            'blood_type' => 'AB',
+        ]);
+
+        Resident::factory(98)->create([]);
     }
 }
