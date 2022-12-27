@@ -51,9 +51,20 @@ Breadcrumbs::for('admin.service.category.index', function (BreadcrumbTrail $trai
     $trail->parent('service');
     $trail->push('Category');
 });
+
 Breadcrumbs::for('admin.service.category.create', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.service.category.index');
     $trail->push('Create');
+});
+
+Breadcrumbs::for('admin.service.category.show', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.service.category.index');
+    $trail->push('Detail');
+});
+
+Breadcrumbs::for('admin.service.category.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.service.category.index');
+    $trail->push('Edit');
 });
 
 Breadcrumbs::for('admin.service.requirement.index', function (BreadcrumbTrail $trail) {

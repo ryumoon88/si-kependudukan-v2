@@ -93,7 +93,7 @@ class ServiceController extends Controller
         ]);
 
         $service->update($validatedData);
-        return redirect(route('admin.service.service.show', ['service' => $service->slug]));
+        return redirect(route('admin.service.service.show', ['service' => $service->slug]))->with('alert', ['message' => 'Service has been updated!', 'type' => 'success']);
     }
 
     /**

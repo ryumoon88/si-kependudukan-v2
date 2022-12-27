@@ -88,7 +88,7 @@
                         <!-- Submit button -->
                         <div class="d-flex justify-content-between align-items-center">
                             <p>Not a member? <a href="/register">Register</a></p>
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Sign in</button>
                         </div>
                     </form>
                 </div>

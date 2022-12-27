@@ -52,7 +52,8 @@ class ServiceCategoryController extends Controller
      */
     public function show(ServiceCategory $serviceCategory)
     {
-        //
+        $sided = false;
+        return view('admin.service.category.show', compact('serviceCategory', 'sided'));
     }
 
     /**
@@ -63,7 +64,8 @@ class ServiceCategoryController extends Controller
      */
     public function edit(ServiceCategory $serviceCategory)
     {
-        //
+        $sided = false;
+        return view('admin.service.category.edit', compact('serviceCategory', 'sided'));
     }
 
     /**
@@ -75,7 +77,13 @@ class ServiceCategoryController extends Controller
      */
     public function update(Request $request, ServiceCategory $serviceCategory)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $serviceCategory->update($validatedData);
+        return redirect(route('admin.service.category.show', ['service_category' => $serviceCategory->slug]))->with('alert', ['message' => 'Service category has been updated!', 'type' => 'success']);
     }
 
     /**
@@ -86,6 +94,7 @@ class ServiceCategoryController extends Controller
      */
     public function destroy(ServiceCategory $serviceCategory)
     {
-        //
+        $serviceCategory->delete();
+        return redirect(route('admin.service.category.index'))->with('alert', ['type' => 'success', 'message' => "Service category has been deleted!"]);
     }
 }

@@ -23,6 +23,9 @@ class ResidentBirthSeeder extends Seeder
             'birth_place' => 'Padang',
             'birth_date' => '2003-01-01'
         ]);
+
+        
+
         for ($i = 2; $i <= 100; $i += 2) {
             ResidentBirth::factory()->create([
                 'father_id' => $i,
