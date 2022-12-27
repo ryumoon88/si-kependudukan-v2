@@ -80,7 +80,7 @@ class AuthenticateController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::insert($validatedData);
+        User::create($validatedData);
 
         return redirect(route('user.auth.login'))->with('alert', 'Registration success!');
     }

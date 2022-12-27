@@ -18,11 +18,27 @@
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
     <script type="module">
-
         $(function(){
-            var table = $('#servicecategory-table').DataTable();
-
+            setTimeout(() => {
+                $('form#delete-form').each((i, d) => {
+                    var hapus = false;
+                    $(d).submit(function(e) {
+                        if(!hapus) {
+                            e.preventDefault();
+                            setModal('Delete Service', "Are you sure want to delete this service?<br/>This action cannot be undone!", 'yesno');
+                            var modal = getModal();
+                            setModalAction(function(e) {
+                                hapus = true;
+                                modal.hide();
+                                setTimeout(() => {
+                                    $(d).submit();
+                                }, 500);
+                            })
+                            modal.show()
+                        }
+                    })
+                })
+            }, 500);
         })
-
     </script>
 @endpush

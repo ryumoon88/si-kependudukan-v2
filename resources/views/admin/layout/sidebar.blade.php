@@ -28,12 +28,14 @@
             </li>
         </ul>
     </li>
+    {{-- @dd(Route::is('admin.service*')) --}}
     <li class="nav-item">
         <a class="nav-link {{ Route::is('admin.service*') ? '' : 'collapsed' }}" data-bs-target="#services-nav"
             data-bs-toggle="collapse" href="#">
             <i class="bi bi-gear"></i><span>Service</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="services-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="services-nav" class="nav-content collapse {{ Route::is('admin.service*') ? 'show' : '' }}"
+            data-bs-parent="#sidebar-nav">
             <li>
                 <a href="{{ route('admin.service.service.index') }}"
                     class="nav-link
@@ -58,19 +60,9 @@
         </ul>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#submissions-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-journal-arrow-down"></i></i><span>Submission</span><i
-                class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link {{ Route::is('admin.index') ? '' : 'collapsed' }}" href="{{ route('admin.index') }}">
+            <i class="bi bi-journal-arrow-down"></i>
+            <span>Submission</span>
         </a>
-        <ul id="submissions-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            @foreach ($serviceCategories as $serviceCategory)
-                <li>
-                    <a
-                        href="{{ route('admin.service.category.show', ['service_category' => $serviceCategory->slug]) }}">
-                        <i class="bi bi-circle"></i><span>{{ $serviceCategory->name }}</span>
-                    </a>
-                </li>
-            @endforeach
-        </ul>
     </li>
 </ul>

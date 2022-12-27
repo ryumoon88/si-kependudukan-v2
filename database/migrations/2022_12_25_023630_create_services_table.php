@@ -16,10 +16,11 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            // $table->foreign('service_category_id')->references('id')->on('service_categories')->onDelete('cascade');
             $table->foreignIdFor(ServiceCategory::class)->nullable();
             $table->string('name');
             $table->string('slug');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }
