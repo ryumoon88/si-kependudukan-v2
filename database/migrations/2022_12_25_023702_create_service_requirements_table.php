@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('need_file')->default(false);
+            $table->ulid('ulid');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SubmissionDataTable;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class SubmissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SubmissionDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.submission.index', ['sided' => false]);
     }
 
     /**

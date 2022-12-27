@@ -31,12 +31,11 @@
                                 <span class="fw-bold text-start">Requirements</span>
                                 @if ($service->requirements->isNotEmpty())
                                     <ul class="w-auto">
-                                        @foreach ($service->requirements as $data)
+                                        @foreach ($service->requirements as $requirement)
                                             {{-- <li>{{ dd($data->requirement) }}</li> --}}
                                             <li class="py-1 align-center">
                                                 <div class="d-flex justify-content-between">
-                                                    <span
-                                                        class="h-100 align-self-center">{{ $data->requirement->name }}</span>
+                                                    <span class="h-100 align-self-center">{{ $requirement->name }}</span>
                                                 </div>
                                             </li>
                                         @endforeach

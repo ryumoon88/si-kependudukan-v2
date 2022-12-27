@@ -60,9 +60,13 @@ Route::group(['prefix' => 'a', 'as' => 'admin.', 'middleware' => 'permission:vie
             ->scoped(['service_category' => 'slug']);
 
         Route::resource('requirement', ServiceRequirementController::class)
-            ->parameter('requirement', 'service_requirement');
+            ->parameter('requirement', 'service_requirement')
+            ->scoped(['service_requirement' => 'ulid']);
 
         Route::resource('service-has-requirement', ServiceHasRequirementController::class);
+
+        Route::resource('submission', SubmissionController::class)
+            ->scoped(['submission' => 'ulid']);
     });
 });
 #endregion

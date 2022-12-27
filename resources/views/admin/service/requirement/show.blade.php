@@ -8,29 +8,27 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="card-title pb-2 m-0">
-                                Service Category Detail <br>
-                                <span>{{ $serviceCategory->name }}</span>
+                                Service Requirement Detail <br>
+                                <span>{{ $serviceRequirement->name }}</span>
                             </div>
                         </div>
                         <div class="d-flex flex-column">
                             <div class="data-field">
                                 <span class="fw-bold text-start">Name</span>
-                                <span class="text-muted ">{{ $serviceCategory->name }}</span>
+                                <span class="text-muted ">{{ $serviceRequirement->name }}</span>
                             </div>
                             <div class="data-field">
-                                <span class="fw-bold text-start pe-5">Description</span>
-                                <span class="text-muted">
-                                    {!! $serviceCategory->description !!}
-                                </span>
+                                <span class="fw-bold text-start">Need File</span>
+                                <span class="text-muted ">{{ $serviceRequirement->need_file ? 'Yes' : 'No' }}</span>
                             </div>
                             <div class="data-field">
-                                <span class="fw-bold text-start pe-5">Services</span>
+                                <span class="fw-bold text-start pe-5">Use in:</span>
                                 <span class="text-muted">
                                     <ul>
-                                        @if ($serviceCategory->services->isEmpty())
+                                        @if ($serviceRequirement->services->isEmpty())
                                             None
                                         @else
-                                            @foreach ($serviceCategory->services as $service)
+                                            @foreach ($serviceRequirement->services as $service)
                                                 <li><a href="{{ route('admin.service.service.show', ['service' => $service->slug]) }}"
                                                         class="text-decoration-none text-muted">{{ $service->name }}</a>
                                                 </li>
@@ -40,12 +38,12 @@
                                 </span>
                             </div>
                             <form id="delete-form" class="button-field text-end" method="POST"
-                                action="{{ route('admin.service.category.destroy', ['service_category' => $serviceCategory->slug]) }}">
+                                action="{{ route('admin.service.requirement.destroy', ['service_requirement' => $serviceRequirement->ulid]) }}">
                                 @method('DELETE')
                                 @csrf
                                 <button class="btn btn-sm btn-danger" type="submit" id="delete-btn">Delete</button>
                                 <a
-                                    class="btn btn-sm btn-primary"href="{{ route('admin.service.category.edit', ['service_category' => $serviceCategory->slug]) }}">Edit</a>
+                                    class="btn btn-sm btn-primary"href="{{ route('admin.service.requirement.edit', ['service_requirement' => $serviceRequirement->ulid]) }}">Edit</a>
                             </form>
                             @push('scripts')
                                 <script type="module">
