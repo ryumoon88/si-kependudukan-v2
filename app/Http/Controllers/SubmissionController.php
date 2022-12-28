@@ -15,6 +15,8 @@ class SubmissionController extends Controller
      */
     public function index(SubmissionDataTable $dataTable)
     {
+        // $submission = Submission::find(5);
+        // dd($submission);
         return $dataTable->render('admin.submission.index', ['sided' => false]);
     }
 
@@ -47,7 +49,8 @@ class SubmissionController extends Controller
      */
     public function show(Submission $submission)
     {
-        //
+        $sided = false;
+        return view('admin.submission.show', compact('submission', 'sided'));
     }
 
     /**

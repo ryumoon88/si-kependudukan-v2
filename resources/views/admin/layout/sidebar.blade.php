@@ -61,7 +61,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link {{ Route::is('admin.service.submission*') ? '' : 'collapsed' }}"
-            href="{{ route('admin.service.submission.index') }}">
+            href="{{ route('admin.submission.index') }}">
             <i class="bi bi-journal-arrow-down"></i>
             <span>Submission</span>
         </a>

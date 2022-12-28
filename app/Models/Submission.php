@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Submission extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToThrough;
 
     protected $guarded = [];
 
-    protected $with = ['submitter', 'service', 'accepted_by'];
+    public $with = ['submitter', 'service', 'serviceCategory'];
 
     public function submitter()
     {
-        return $this->hasOneThrough(Resident::class, User::class, 'resident_id', 'id');
+        return $this->belongsToThrough(ResidentBirth::class, Resident::class, null, '', [Resident::class => 'submitter_id']);
     }
 
     public function service()
@@ -23,8 +24,8 @@ class Submission extends Model
         return $this->belongsTo(Service::class);
     }
 
-    public function accepted_by()
+    public function serviceCategory()
     {
-        return $this->belongsTo(User::class, 'accepted_by');
+        return $this->belongsToThrough(ServiceCategory::class, Service::class);
     }
 }

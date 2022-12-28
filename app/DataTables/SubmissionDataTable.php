@@ -25,7 +25,17 @@ class SubmissionDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->setRowId('id');
+            ->addColumn('service_name', function ($data) {
+                return $data->serviceCategory->name . ': ' . $data->service->name;
+            })
+            ->filterColumn('service_name', function ($query, $keyword) {
+                $query->whereRelation('serviceCategory', 'service_categories.name', 'LIKE', "%{$keyword}%")
+                    ->orWhereRelation('service', 'services.name', 'LIKE', "%{$keyword}%");
+            })
+            ->setRowId('id')
+            ->addColumn('action', function ($data) {
+                return '<a class="btn btn-primary btn-sm" href="' . route('admin.submission.show', ['submission' => $data->ulid]) . '">Detail</a>';
+            });
     }
 
     /**
@@ -36,29 +46,7 @@ class SubmissionDataTable extends DataTable
      */
     public function query(Submission $model): QueryBuilder
     {
-        // $query = Submission::leftJoin('users', 'submissions.submitter_id', '=', 'users.id')
-        //     ->join('residents', 'users.resident_id', '=', 'residents.id')
-        //     ->join('resident_births', 'residents.resident_birth_id', '=', 'resident_births.id')
-        //     ->join('services', 'submissions.service_id', '=', 'services.id')
-        //     ->join('service_categories', 'services.service_category_id', '=', 'service_categories.id')
-        //     ->select(['submissions.id', 'resident_births.name', 'CONCAT(`service_categories`.`name`, ": ", `services`.`name`) as service_name', 'submissions.status', 'submissions.accepted_by', 'submissions.created_at'])
-        //     ->orderBy('submissions.created_at');
-
-        // leftJoin('users', 'submissions.submitter_id', '=', 'users.id')
-        //     ->join('residents', 'users.resident_id', '=', 'residents.id')
-        //     ->join('resident_births', 'residents.resident_birth_id', '=', 'resident_births.id')
-        //     ->join('services', 'submissions.service_id', '=', 'services.id')
-        //     ->join('service_categories', 'services.service_category_id', '=', 'service_categories.id')
-        //     ->select(['submissions.id', 'resident_births.name', 'CONCAT(`service_categories`.`name`, ": ", `services`.`name`) as service_name', 'submissions.status', 'submissions.accepted_by', 'submissions.created_at'])
-        //     ->orderBy('submissions.created_at');
-
-        // return $model->select(['submissions.id', 'resident_births.name', DB::raw('CONCAT(`service_categories`.`name`, ": ", `services`.`name`) as service_name'), 'submissions.status', 'submissions.accepted_by', 'submissions.created_at'])
-        //     ->leftJoin('users', 'submissions.submitter_id', '=', 'users.id')
-        //     ->join('residents', 'users.resident_id', '=', 'residents.id')
-        //     ->join('resident_births', 'residents.resident_birth_id', '=', 'resident_births.id')
-        //     ->join('services', 'submissions.service_id', '=', 'services.id')
-        //     ->join('service_categories', 'services.service_category_id', '=', 'service_categories.id')
-        //     ->orderBy('submissions.created_at')->newQuery();
+        return $model->select(['submissions.*'])->newQuery();
     }
 
     /**
@@ -72,8 +60,8 @@ class SubmissionDataTable extends DataTable
             ->setTableId('submission-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
-            ->orderBy(0);
+            ->ordering(false);
+        //->dom('Bfrtip')
     }
 
     /**
@@ -85,9 +73,11 @@ class SubmissionDataTable extends DataTable
     {
         return [
             Column::computed('DT_RowIndex')->title('#'),
-            Column::make('submitter.birth.name')->orderable(false),
+            Column::make('submitter.name')->orderable(false),
             Column::make('service_name'),
-            Column::make('status')
+            Column::make('status'),
+            Column::make('created_at'),
+            Column::computed('action')->width(0)
         ];
     }
 

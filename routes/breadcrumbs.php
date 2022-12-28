@@ -87,7 +87,12 @@ Breadcrumbs::for('admin.service.requirement.edit', function (BreadcrumbTrail $tr
     $trail->push('Edit');
 });
 
-Breadcrumbs::for('admin.service.submission.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.submission.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.index');
     $trail->push('Submission');
+});
+
+Breadcrumbs::for('admin.submission.show', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.submission.index');
+    $trail->push('Detail');
 });

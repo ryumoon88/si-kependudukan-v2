@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Resident::class);
     }
+
+    public function resident_birth()
+    {
+        return $this->hasOneThrough(ResidentBirth::class, Resident::class, 'resident_birth_id', 'id');
+    }
 }

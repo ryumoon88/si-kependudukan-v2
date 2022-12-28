@@ -31,7 +31,7 @@ class ResidentDataTable extends DataTable
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="' . route('admin.resident.registered.show', ['resident' => $data->ulid]) . '">Details</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item" href="' . route('admin.resident.registered.edit', ['resident' => $data->ulid]) . '">Edit</a></li>
                         <li><a class="dropdown-item" href="#">Delete</a></li>
                     </ul>
                 </div>';
@@ -46,7 +46,8 @@ class ResidentDataTable extends DataTable
      */
     public function query(Resident $model): QueryBuilder
     {
-        return $model->newQuery();
+        $query = $model->select(['residents.*']);
+        return $query;
     }
 
     /**
