@@ -7,13 +7,13 @@
                     <div class="card-title">Service Requirement</div>
                     <div class="d-flex justify-content-end">
                         <div class="input-group input-group-sm mb-3">
-                            {{-- <label class="input-group-text" for="statusFilter">Status Filter</label>
+                            <label class="input-group-text" for="statusFilter">Status Filter</label>
                             <select class="form-select" id="statusFilter">
                                 <option value="" selected>All</option>
                                 <option value="Accepted">Accepted</option>
-                                <option value="Accepted">Reviewing</option>
-                                <option value="Accepted">Denied</option>
-                            </select> --}}
+                                <option value="Reviewing">Reviewing</option>
+                                <option value="Denied">Denied</option>
+                            </select>
                             <label class="input-group-text" for="serviceFilter">Service Filter</label>
                             <select class="form-select" id="serviceFilter">
                                 <option value="" selected>All</option>
@@ -37,14 +37,12 @@
     <script type="module">
         $(function(){
 
-            var dataTable = LaravelDataTables["submission-table"];
-
-            // $('select#statusFilter').change(function(e){
-            //     var val = $(this).val()+" "+$('select#serviceFilter').val();
-            //     dataTable.search(val).draw();
-            // })
-
             var table = $('#submission-table')
+
+            $('select#statusFilter').change(function(e){
+                var val = $(this).val();
+                table.DataTable().column(3).search(val).draw();
+            })
 
             $('select#serviceFilter').change(function(e){
                 table.on('preXhr.dt', function(e, settings, data){
