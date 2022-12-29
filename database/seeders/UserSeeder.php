@@ -30,6 +30,13 @@ class UserSeeder extends Seeder
             'username' => 'ryumoon',
             'email' => 'ryumoon.light@mail.com'
         ]);
+        $user->assignRole($superAdmin);
+        $user = User::factory()->create([
+            'id_card_number' => '1370000000000002',
+            'resident_id' => 1,
+            'username' => 'JilhanHaura',
+            'email' => 'jilhanhaura@gmail.com'
+        ]);
 
         $user->assignRole($superAdmin);
     }

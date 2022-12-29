@@ -33,6 +33,12 @@ Route::post('/logout', [AuthenticateController::class, 'logout'])->name('user.au
 Route::get('/register', [AuthenticateController::class, 'register'])->name('user.auth.register');
 Route::post('/register', [AuthenticateController::class, 'validates'])->name('user.auth.validate');
 Route::post('/register/success', [AuthenticateController::class, 'registered'])->name('user.auth.registered');
+Route::get('/pengajuan', function () {
+    return view('user.pengajuan.index');
+});
+Route::get('/berita', function () {
+    return view('user.berita.perlu');
+})->name('user.berita.index');
 #endregion
 
 #region Admin

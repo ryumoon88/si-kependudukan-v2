@@ -14,7 +14,7 @@
             </li>
             <li><a class="nav-link scrollto" href="#services">Services</a></li>
             {{-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> --}}
-            <li><a class="nav-link scrollto" href="#berita">News & Article</a>
+            <li><a class="nav-link scrollto" href="/berita">News & Article</a>
             </li>
             <li><a class="nav-link scrollto" href="#team">Team</a></li>
             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>

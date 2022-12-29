@@ -23,7 +23,15 @@ class ResidentBirthSeeder extends Seeder
             'birth_place' => 'Padang',
             'birth_date' => '2003-01-01'
         ]);
-        for ($i = 2; $i <= 100; $i += 2) {
+        ResidentBirth::factory()->create([
+            'father_id' => null,
+            'mother_id' => null,
+            'name' => "Tsalsabila Jilhan Haura",
+            'gender' => 'Female',
+            'birth_place' => 'Padang',
+            'birth_date' => '2002-07-02'
+        ]);
+        for ($i = 3; $i <= 100; $i += 2) {
             ResidentBirth::factory()->create([
                 'father_id' => $i,
                 'mother_id' => $i + 1
