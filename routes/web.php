@@ -37,6 +37,13 @@ Route::group(['as' => 'user.auth.'], function () {
     Route::post('/register', [AuthenticateController::class, 'validates'])->name('validate');
     Route::post('/register/success', [AuthenticateController::class, 'registered'])->name('registered');
 });
+
+Route::get('/pengajuan', function () {
+    return view('user.pengajuan.index');
+});
+Route::get('/berita', function () {
+    return view('user.berita.perlu');
+})->name('user.berita.index');
 #endregion
 
 Route::group([], function () {
