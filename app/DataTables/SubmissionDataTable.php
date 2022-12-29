@@ -25,17 +25,28 @@ class SubmissionDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
+            ->setRowId('id')
             ->addColumn('service_name', function ($data) {
                 return $data->serviceCategory->name . ': ' . $data->service->name;
             })
-            ->filterColumn('service_name', function ($query, $keyword) {
-                $query->whereRelation('serviceCategory', 'service_categories.name', 'LIKE', "%{$keyword}%")
-                    ->orWhereRelation('service', 'services.name', 'LIKE', "%{$keyword}%");
+            ->addColumn('status', function ($data) {
+                $status = $data->status;
+                $type = 'warning';
+                if ($status == 'Accepted') $type = 'success';
+                elseif ($status == 'Denied') $type = 'danger';
+                return '<span class="badge badge-sm text-small text-bg-' . $type . '">' . $status . '</span>';
             })
-            ->setRowId('id')
+            ->filterColumn('service_name', function (QueryBuilder $query, $keyword) {
+                $query->whereRelation('serviceCategory', DB::raw('CONCAT(service_categories.name, ": ",services.name)'), 'LIKE', "%{$keyword}%");
+                // ->orWhereRelation('service', 'services.name', 'LIKE', "%{$keyword}%");
+            })
+            ->filterColumn('status', function ($query, $keyword) {
+                $query->where('status', 'LIKE', "%{$keyword}%");
+            })
             ->addColumn('action', function ($data) {
                 return '<a class="btn btn-primary btn-sm" href="' . route('admin.submission.show', ['submission' => $data->ulid]) . '">Detail</a>';
-            });
+            })
+            ->rawColumns(['status', 'action']);
     }
 
     /**
@@ -46,7 +57,10 @@ class SubmissionDataTable extends DataTable
      */
     public function query(Submission $model): QueryBuilder
     {
-        return $model->select(['submissions.*'])->newQuery();
+        $service_name = request()->get('service_name');
+        return $model
+            ->whereRelation('serviceCategory', DB::raw('CONCAT(service_categories.name, ": ",services.name)'), 'LIKE', "%{$service_name}%")
+            ->select(['submissions.*'])->newQuery();
     }
 
     /**
@@ -72,7 +86,7 @@ class SubmissionDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('DT_RowIndex')->title('#'),
+            Column::computed('DT_RowIndex')->title('#')->addClass('fw-bold')->width(0),
             Column::make('submitter.name')->orderable(false),
             Column::make('service_name'),
             Column::make('status'),

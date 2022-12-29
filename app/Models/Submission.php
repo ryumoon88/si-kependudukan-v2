@@ -4,15 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
-class Submission extends Model
+class Submission extends Model implements HasMedia
 {
-    use HasFactory, BelongsToThrough;
+    use HasFactory, BelongsToThrough, InteractsWithMedia;
 
     protected $guarded = [];
 
+    protected $casts = ['created_at' => 'date:d M Y'];
+
     public $with = ['submitter', 'service', 'serviceCategory'];
+
+
 
     public function submitter()
     {

@@ -11,7 +11,7 @@ class Service extends Model
 {
     use HasFactory, HasSlug;
 
-    public $with = ['category'];
+    public $with = ['category', 'requirements'];
 
     protected $cast = [];
 

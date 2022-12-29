@@ -30,48 +30,34 @@
                                 </span>
                             </div>
                             <div class="data-field">
-                                <span class="fw-bold text-start pe-5">Requirements</span>
+                                <span class="fw-bold text-start pe-5">Attachment</span>
                                 <ul>
+                                    {{-- @dd($submission->getFirstMedia(Str::slug('foto selfie'))->name) --}}
                                     @foreach ($submission->service->requirements as $requirement)
                                         <li>
                                             <div class="d-flex flex-column">
-                                                <span>{{ $requirement->name }}</span>
-                                                <span class="fw-bold">File</span>
+                                                <span class="fw-bold">{{ $requirement->name }}</span>
+                                                @if ($submission->hasMedia(Str::slug($requirement->name)))
+                                                    @php
+                                                        $media = $submission->getFirstMedia(Str::slug($requirement->name));
+                                                    @endphp
+                                                    <a href="{{ $media->getUrl() }}"
+                                                        target="_blank">{{ $media->file_name }}</a>
+                                                @else
+                                                    <span class="text-danger">Missing</span>
+                                                @endif
                                             </div>
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
-                            {{-- <form id="delete-form" class="button-field text-end" method="POST"
-                                action="{{ route('admin.service.category.destroy', ['service_category' => $serviceCategory->slug]) }}">
-                                @method('DELETE')
-                                @csrf
-                                <button class="btn btn-sm btn-danger" type="submit" id="delete-btn">Delete</button>
-                                <a
-                                    class="btn btn-sm btn-primary"href="{{ route('admin.service.category.edit', ['service_category' => $serviceCategory->slug]) }}">Edit</a>
-                            </form> --}}
-                            @push('scripts')
-                                <script type="module">
-                                    $(function(){
-                                        var hapus = false;
-                                        $('#delete-form').submit(function(e){
-                                            if(!hapus) {
-                                                e.preventDefault();
-                                                setModal('Delete Service', "Are you sure want to delete this service category?<br/>This action cannot be undone!", 'yesno');
-                                                var modal = getModal();
-                                                setModalAction(function(e) {
-                                                    hapus = true;
-                                                    modal.hide();
-                                                    setTimeout(() => {
-                                                        $("#delete-form").submit();
-                                                    }, 500);
-                                                })
-                                                modal.show()
-                                            }
-                                        })
-                                    })
-                                </script>
-                            @endpush
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('admin.submission.deny', ['submission' => $submission->ulid]) }}"
+                                    class="btn btn-danger btn-sm me-2">Deny</a>
+                                <a href="{{ route('admin.submission.accept', ['submission' => $submission->ulid]) }}"
+                                    class="btn btn-success btn-sm">Accept</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
