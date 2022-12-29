@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Symfony\Component\Uid\Ulid;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ServiceRequirement>
@@ -16,6 +17,8 @@ class ServiceRequirementFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'ulid' => Ulid::generate(now())
+        ];
     }
 }

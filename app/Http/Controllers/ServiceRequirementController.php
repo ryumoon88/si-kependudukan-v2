@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\ServiceRequirementDataTable;
 use App\Models\ServiceRequirement;
 use Illuminate\Http\Request;
+use Symfony\Component\Uid\Ulid;
+use Illuminate\Support\Str;
 
 class ServiceRequirementController extends Controller
 {
@@ -25,7 +27,8 @@ class ServiceRequirementController extends Controller
      */
     public function create()
     {
-        //
+        $sided = false;
+        return view('admin.service.requirement.new', compact('sided'));
     }
 
     /**
@@ -36,7 +39,14 @@ class ServiceRequirementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'need_file' => 'required'
+        ]);
+
+        $validatedData['ulid'] = Str::lower(Ulid::generate(now()));
+        ServiceRequirement::create($validatedData);
+        return redirect(route('admin.service.requirement.index'))->with('alert', ['type' => 'success', 'message' => "Service requirement has been added!"]);
     }
 
     /**
@@ -47,7 +57,8 @@ class ServiceRequirementController extends Controller
      */
     public function show(ServiceRequirement $serviceRequirement)
     {
-        //
+        $sided = false;
+        return view('admin.service.requirement.show', compact('sided', 'serviceRequirement'));
     }
 
     /**
@@ -58,7 +69,8 @@ class ServiceRequirementController extends Controller
      */
     public function edit(ServiceRequirement $serviceRequirement)
     {
-        //
+        $sided = false;
+        return view('admin.service.requirement.edit', compact('serviceRequirement', 'sided'));
     }
 
     /**
@@ -70,7 +82,15 @@ class ServiceRequirementController extends Controller
      */
     public function update(Request $request, ServiceRequirement $serviceRequirement)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'need_file' => 'required',
+        ]);
+
+        $validatedData['ulid'] = Ulid::generate(now());
+
+        $serviceRequirement->update($validatedData);
+        return redirect(route('admin.service.requirement.show', ['service_requirement' => $serviceRequirement->ulid]))->with('alert', ['message' => 'Service requirement has been updated!', 'type' => 'success']);
     }
 
     /**
@@ -81,6 +101,7 @@ class ServiceRequirementController extends Controller
      */
     public function destroy(ServiceRequirement $serviceRequirement)
     {
-        //
+        $serviceRequirement->delete();
+        return redirect(route('admin.service.requirement.index'))->with('alert', ['type' => 'success', 'message' => "Service requirement has been deleted!"]);
     }
 }

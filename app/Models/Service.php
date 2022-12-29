@@ -31,6 +31,6 @@ class Service extends Model
 
     public function requirements()
     {
-        return $this->hasMany(ServiceHasRequirement::class);
+        return $this->belongsToMany(ServiceRequirement::class, 'service_has_requirements');
     }
 }
