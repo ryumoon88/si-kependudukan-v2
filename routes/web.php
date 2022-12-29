@@ -27,18 +27,29 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('user.index');
 })->name('user.index');
-Route::get('/login', [AuthenticateController::class, 'login'])->name('user.auth.login');
-Route::post('/authenticate', [AuthenticateController::class, 'authenticate'])->name('user.auth.authenticate');
-Route::post('/logout', [AuthenticateController::class, 'logout'])->name('user.auth.logout');
-Route::get('/register', [AuthenticateController::class, 'register'])->name('user.auth.register');
-Route::post('/register', [AuthenticateController::class, 'validates'])->name('user.auth.validate');
-Route::post('/register/success', [AuthenticateController::class, 'registered'])->name('user.auth.registered');
+
+#region Authentication
+Route::group(['as' => 'user.auth.'], function () {
+    Route::get('/login', [AuthenticateController::class, 'login'])->name('login');
+    Route::post('/authenticate', [AuthenticateController::class, 'authenticate'])->name('authenticate');
+    Route::post('/logout', [AuthenticateController::class, 'logout'])->name('logout');
+    Route::get('/register', [AuthenticateController::class, 'register'])->name('register');
+    Route::post('/register', [AuthenticateController::class, 'validates'])->name('validate');
+    Route::post('/register/success', [AuthenticateController::class, 'registered'])->name('registered');
+});
+
 Route::get('/pengajuan', function () {
     return view('user.pengajuan.index');
 });
 Route::get('/berita', function () {
     return view('user.berita.perlu');
 })->name('user.berita.index');
+#endregion
+
+Route::group([], function () {
+    Route::resource('submission', SubmissionController::class)->names('user.submission');
+});
+
 #endregion
 
 #region Admin
@@ -70,9 +81,15 @@ Route::group(['prefix' => 'a', 'as' => 'admin.', 'middleware' => 'permission:vie
             ->scoped(['service_requirement' => 'ulid']);
 
         Route::resource('service-has-requirement', ServiceHasRequirementController::class);
-
-        Route::resource('submission', SubmissionController::class)
-            ->scoped(['submission' => 'ulid']);
     });
+
+    Route::group(['prefix' => 'submission', 'as' => 'submission.'], function () {
+        Route::get('accept/{submission:ulid}', [SubmissionController::class, 'accept_submission'])->name('accept');
+        Route::get('deny/{submission:ulid}', [SubmissionController::class, 'deny_submission'])->name('deny');
+    });
+
+    Route::resource('submission', SubmissionController::class)
+        ->scoped(['submission' => 'ulid'])
+        ->only(['show', 'index']);
 });
 #endregion

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\SubmissionDataTable;
+use App\Models\Service;
 use App\Models\Submission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubmissionController extends Controller
 {
@@ -15,7 +17,10 @@ class SubmissionController extends Controller
      */
     public function index(SubmissionDataTable $dataTable)
     {
-        return $dataTable->render('admin.submission.index', ['sided' => false]);
+        // $submission = Submission::find(5);
+        // dd($submission);
+        $services = Service::all();
+        return $dataTable->render('admin.submission.index', ['sided' => false, 'services' => $services]);
     }
 
     /**
@@ -25,7 +30,9 @@ class SubmissionController extends Controller
      */
     public function create()
     {
-        //
+        // $submission = Submission::find(1);
+        // $submission->copyMedia(storage_path('statics/foto-ktp.pdf'))->toMediaCollection('foto-ktp');
+        // dd($submission->getFirstMedia('foto-selfie')->get());
     }
 
     /**
@@ -47,7 +54,8 @@ class SubmissionController extends Controller
      */
     public function show(Submission $submission)
     {
-        //
+        $sided = false;
+        return view('admin.submission.show', compact('submission', 'sided'));
     }
 
     /**
@@ -82,5 +90,17 @@ class SubmissionController extends Controller
     public function destroy(Submission $submission)
     {
         //
+    }
+
+    public function accept_submission(Submission $submission)
+    {
+        $submission->update(['status' => 'Accepted', 'accepted_by' => Auth::user()->id, 'accepted_at' => now()]);
+        return redirect(route('admin.submission.show', ['submission' => $submission->ulid]))->with('alert', ['type' => 'success', 'message' => 'Submission accepted']);
+    }
+
+    public function deny_submission(Submission $submission)
+    {
+        $submission->update(['status' => 'Denied']);
+        return redirect(route('admin.submission.show', ['submission' => $submission->ulid]))->with('alert', ['type' => 'success', 'message' => 'Submission denied']);
     }
 }

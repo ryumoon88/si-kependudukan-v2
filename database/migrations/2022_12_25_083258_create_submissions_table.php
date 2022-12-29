@@ -18,7 +18,7 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class, 'submitter_id');
+            $table->foreignIdFor(Resident::class, 'submitter_id');
             $table->foreignIdFor(Service::class);
             $table->enum('status', ['Reviewing', 'Denied', 'Accepted']);
             $table->foreignIdFor(User::class, 'accepted_by')->nullable()->default(null);
