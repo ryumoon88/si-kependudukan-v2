@@ -23,5 +23,9 @@ class ServiceHasRequirementSeeder extends Seeder
             'service_id' => 1,
             'service_requirement_id' => 2
         ]);
+        ServiceHasRequirement::factory()->create([
+            'service_id' => 1,
+            'service_requirement_id' => 5
+        ]);
     }
 }

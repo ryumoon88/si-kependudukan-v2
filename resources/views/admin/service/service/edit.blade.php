@@ -3,7 +3,7 @@
 @section('content')
     <div class="section">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
+            <div class="col-12">
                 <div class="card">
                     <form class="card-body" method="POST"
                         action="{{ route('admin.service.service.update', ['service' => $service->slug]) }}">
@@ -36,14 +36,16 @@
                             </div>
                             <div class="mb-3 data-field d-flex flex-column">
                                 <label for="basic-url" class="form-label fw-bold">Description</label>
-                                <textarea class="ckeditor form-control" name="description">
+                                <textarea class="ckeditor form-control" id="ck-editor" name="description">
                                     {{ $service->description }}
                                 </textarea>
                                 @push('scripts')
                                     <script type="module">
-                                        $(document).ready(function () {
-                                            $('.ckeditor').ckeditor();
-                                        });
+                                        $(function(){
+                                            CKEDITOR.replace('ck-editor', {
+                                                enterMode: CKEDITOR.ENTER_DIV
+                                            });
+                                        })
                                     </script>
                                 @endpush
                             </div>
@@ -54,7 +56,7 @@
                                         {{-- <li>{{ dd($data->requirement) }}</li> --}}
                                         <li class="py-1 align-center">
                                             <div class="d-flex justify-content-between">
-                                                <span class="h-100 align-self-center">{{ $data->requirement->name }}</span>
+                                                <span class="h-100 align-self-center">{{ $data->name }}</span>
                                                 <a data-id="{{ $data->id }}" data-bs-toggle="tooltip"
                                                     data-bs-placement="top" data-bs-title="Delete" href=""
                                                     class="ms-3 btn-delete-req btn btn-sm btn-outline-danger"><i
@@ -95,7 +97,7 @@
                                         </script>
                                     @endpush
                                     @if ($requirements->isNotEmpty())
-                                        <select class="form-select form-select-sm" id="add-requirement"
+                                        <select class="form-select form-select-sm mt-2" id="add-requirement"
                                             aria-label="Default select example">
                                             <option selected>Add Requirement</option>
                                             @foreach ($requirements as $req)
@@ -125,7 +127,7 @@
                                             })
                                             </script>
                                         @endpush
-                                @endif
+                                    @endif
                                 </ul>
                             </div>
 

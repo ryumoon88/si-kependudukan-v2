@@ -89,10 +89,47 @@ Breadcrumbs::for('admin.service.requirement.edit', function (BreadcrumbTrail $tr
 
 Breadcrumbs::for('admin.submission.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.index');
-    $trail->push('Submission');
+    $trail->push('Submission', route('admin.submission.index'));
 });
 
 Breadcrumbs::for('admin.submission.show', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.submission.index');
     $trail->push('Detail');
 });
+
+Breadcrumbs::for('admin.profile.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.index');
+    $trail->push('Profile');
+});
+
+
+#region user
+Breadcrumbs::for('user.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Home', route('user.index'));
+});
+
+Breadcrumbs::for('user.auth.login', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.index');
+    $trail->push('Login', route('user.auth.login'));
+});
+
+Breadcrumbs::for('user.service-category.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.index');
+    $trail->push('Service Category');
+});
+
+Breadcrumbs::for('user.service.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.index');
+    $trail->push('Service');
+});
+
+Breadcrumbs::for('user.submission.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.index');
+    $trail->push('Submission', route('user.submission.index'));
+});
+
+Breadcrumbs::for('user.submission.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.submission.index');
+    $trail->push('Create', route('user.submission.create'));
+});
+#endregion

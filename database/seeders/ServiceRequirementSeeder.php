@@ -31,5 +31,9 @@ class ServiceRequirementSeeder extends Seeder
             'name' => "Surat Keterangan Hilang (dari kepolisian)",
             'need_file' => true
         ]);
+        // ServiceRequirement::factory()->create([
+        //     'name' => 'Umur diatas 18 tahun',
+        //     'need_file' => false
+        // ]);
     }
 }

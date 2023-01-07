@@ -7,6 +7,9 @@ use App\Models\Service;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Symfony\Component\Uid\Ulid;
 
 class SubmissionController extends Controller
 {
@@ -30,9 +33,10 @@ class SubmissionController extends Controller
      */
     public function create()
     {
-        // $submission = Submission::find(1);
-        // $submission->copyMedia(storage_path('statics/foto-ktp.pdf'))->toMediaCollection('foto-ktp');
-        // dd($submission->getFirstMedia('foto-selfie')->get());
+        $selected_service = request()->get('service');
+        $selected_service = Service::where('slug', $selected_service)->first();
+        $services = Service::all();
+        return view('user.submission.create', compact('services', 'selected_service'));
     }
 
     /**
@@ -43,7 +47,40 @@ class SubmissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->files);
+        $service_id = $request->input('service_id');
+        $service = Service::find($service_id);
+        if ($service == null)
+            return redirect()->back()->with('alert', ['type' => 'danger', 'message' => 'Invalid service!']);
+
+        $rules = [
+            'service_id' => 'required',
+        ];
+
+        foreach ($request->files->keys() as $key) {
+            $rules = Arr::add($rules, "$key", 'required');
+        }
+
+        // dd($rules);
+
+        $validatedData = $request->validate($rules);
+        $validatedData['submitter_id'] = Auth::user()->resident->id;
+        $validatedData['status'] = 'Reviewing';
+        $validatedData['ulid'] = Ulid::generate(now());
+
+        foreach ($request->files->keys() as $key) {
+            Arr::forget($validatedData, $key);
+        }
+
+        $submission = Submission::create(
+            $validatedData
+        );
+
+        foreach ($request->files->keys() as $key) {
+            $submission->addMediaFromRequest($key)->toMediaCollection($key);
+        }
+
+        return redirect()->back()->with('alert', ['type' => 'success', 'message' => 'Submission created, please wait until administrator respond to your request!']);
     }
 
     /**
@@ -52,7 +89,7 @@ class SubmissionController extends Controller
      * @param  \App\Models\Submission  $submission
      * @return \Illuminate\Http\Response
      */
-    public function show(Submission $submission)
+    public function show(Submission $submission,)
     {
         $sided = false;
         return view('admin.submission.show', compact('submission', 'sided'));

@@ -73,8 +73,8 @@ class SubmissionDataTable extends DataTable
         return $this->builder()
             ->setTableId('submission-table')
             ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->ordering(false);
+            ->minifiedAjax();
+        // ->ordering(false);
         //->dom('Bfrtip')
     }
 
@@ -90,7 +90,7 @@ class SubmissionDataTable extends DataTable
             Column::make('submitter.name')->orderable(false),
             Column::make('service_name'),
             Column::make('status'),
-            Column::make('created_at'),
+            Column::make('created_at')->orderable(true),
             Column::computed('action')->width(0)
         ];
     }

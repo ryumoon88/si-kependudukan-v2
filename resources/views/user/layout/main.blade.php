@@ -37,6 +37,17 @@
     @endif
 
     <main id="main">
+        @if (!Route::is('user.index'))
+            {{ Breadcrumbs::view('partials.user-breadcrumb') }}
+        @endif
+        @if (session('alert') != null)
+            <div class="alert alert-{{ session('alert')['type'] }} alert-dismissible fade show" role="alert">
+                <i
+                    class="bi {{ isset(session('alert')['class']) ? session('alert')['class'] : 'bi-check-circle' }} me-1"></i>
+                {{ session('alert')['message'] }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         @yield('content')
     </main><!-- End #main -->
 

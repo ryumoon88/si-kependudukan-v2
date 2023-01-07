@@ -24,7 +24,7 @@ class ResidentSeeder extends Seeder
             'blood_type' => 'A',
         ]);
         Resident::factory()->create([
-            'resident_birth_id' => 1,
+            'resident_birth_id' => 2,
             'id_card_number' => '1370000000000002',
             'email' => 'jilhanhaura@gmail.com',
             'phone_number' => '089909909891',
