@@ -8,6 +8,8 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+/* @import '/node_modules/bootstrap-select/dist/css/bootstrap-select.css'; */
+
 :root {
     scroll-behavior: smooth;
 }

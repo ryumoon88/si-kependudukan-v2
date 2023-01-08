@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('service_requirements', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('need_file')->default(false);
+            $table->enum('type', ['file', 'image', 'input']);
             $table->ulid('ulid');
             $table->timestamps();
         });

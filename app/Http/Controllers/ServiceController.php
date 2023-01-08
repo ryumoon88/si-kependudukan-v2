@@ -90,9 +90,10 @@ class ServiceController extends Controller
         $validatedData = $request->validate([
             'service_category_id' => 'required',
             'name' => 'required',
-            'description' => 'required',
-            'excerpt' => Str::limit(trim(strip_tags($request->input('description'))), 100)
+            'description' => 'required'
         ]);
+
+        $validatedData['excerpt'] = Str::limit(trim(strip_tags($request->input('description'))), 100);
 
         $service->update($validatedData);
         return redirect(route('admin.service.service.show', ['service' => $service->slug]))->with('alert', ['message' => 'Service has been updated!', 'type' => 'success']);

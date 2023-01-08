@@ -6,10 +6,15 @@ import 'chart.js';
 import 'quill';
 import 'tinymce';
 
-import '../../css/admin/style.css';
+import 'bootstrap-select';
+// import './bootstrap-select/dist/js/bootstrap-select.js';
+
+$.fn.selectpicker.Constructor.BootstrapVersion = '5';
 
 window.echarts = echarts;
 window.ApexCharts = ApexCharts;
+
+import '../../sass/admin/main.scss';
 
 (function () {
     "use strict";

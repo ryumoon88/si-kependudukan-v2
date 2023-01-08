@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('birth_place');
             $table->string('birth_date');
             $table->ulid('ulid');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

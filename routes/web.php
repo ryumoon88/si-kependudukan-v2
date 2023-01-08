@@ -80,6 +80,7 @@ Route::group(['prefix' => 'a', 'as' => 'admin.', 'middleware' => 'permission:vie
             ->scoped(['resident_birth' => 'ulid'])
             ->names('birth');
 
+
         Route::resource('registered', ResidentController::class)
             ->parameter('registered', 'resident')
             ->scoped(['resident' => 'ulid'])

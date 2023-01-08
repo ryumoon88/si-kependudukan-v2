@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ResidentBirthDataTable;
 use App\Models\ResidentBirth;
 use Illuminate\Http\Request;
+use Symfony\Component\Uid\Ulid;
 
 class ResidentBirthController extends Controller
 {
@@ -25,7 +26,7 @@ class ResidentBirthController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.resident.birth.new', ['sided' => false]);
     }
 
     /**
@@ -36,7 +37,19 @@ class ResidentBirthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'father_id' => 'required',
+            'mother_id' => 'required',
+            'name' => 'required',
+            'gender' => 'required',
+            'birth_place' => 'required',
+            'birth_date' => 'required'
+        ]);
+
+        $validatedData['ulid'] = Ulid::generate(now());
+
+        $residentBirth = ResidentBirth::insert($validatedData);
+        return redirect(route('admin.resident.birth.show', ['resident_birth' => $residentBirth->ulid]))->with('alert', ['type' => 'success', 'message' => 'New Resident Birth has been added']);
     }
 
     /**
@@ -47,7 +60,8 @@ class ResidentBirthController extends Controller
      */
     public function show(ResidentBirth $residentBirth)
     {
-        //
+        $sided = false;
+        return view('admin.resident.birth.show', compact('residentBirth', 'sided'));
     }
 
     /**
@@ -58,7 +72,8 @@ class ResidentBirthController extends Controller
      */
     public function edit(ResidentBirth $residentBirth)
     {
-        //
+        $sided = false;
+        return view('admin.resident.birth.edit', compact('residentBirth', 'sided'));
     }
 
     /**
@@ -70,7 +85,14 @@ class ResidentBirthController extends Controller
      */
     public function update(Request $request, ResidentBirth $residentBirth)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'birth_place' => 'required',
+            'birth_date' => 'required'
+        ]);
+        $residentBirth->update($validatedData);
+        return redirect(route('admin.resident.birth.show', ['resident_birth' => $residentBirth->ulid]))->with('alert', ['type' => 'success', 'message' => 'Resident birth data has been updated!']);
     }
 
     /**
@@ -81,6 +103,7 @@ class ResidentBirthController extends Controller
      */
     public function destroy(ResidentBirth $residentBirth)
     {
-        //
+        $residentBirth->delete();
+        return redirect(route('admin.resident.birth.index'))->with('alert', ['type' => 'success', 'message' => 'Resident birth data has deleted!']);
     }
 }
