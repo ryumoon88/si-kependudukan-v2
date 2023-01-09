@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\Uid\Ulid;
 
 use function Ramsey\Uuid\v1;
 
@@ -79,9 +80,9 @@ class AuthenticateController extends Controller
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
-
+        $validatedData['ulid'] = Ulid::generate(now());
         User::create($validatedData);
 
-        return redirect(route('user.auth.login'))->with('alert', 'Registration success!');
+        return redirect(route('user.auth.login'))->with('alert', ['type' => 'success', 'message' => 'Registration success!']);
     }
 }

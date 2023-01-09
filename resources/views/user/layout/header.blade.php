@@ -16,15 +16,16 @@
                     href="@if (Route::is('user.index')) #services @else {{ route('user.service.index') }} @endif">Services</a>
             </li>
             {{-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> --}}
-            <li><a class="nav-link scrollto" href="/berita">News & Article</a>
-            </li>
+            {{-- <li><a class="nav-link scrollto" href="/berita">News & Article</a>
+            </li> --}}
             <li><a class="nav-link scrollto" href="#team">Team</a></li>
             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
 
             @auth
                 <li class="dropdown">
-                    <a href="" type="button"><img src="{{ Vite::image('team/team-3.jpg') }}" alt=""
-                            srcset="" style="max-width: 30px;" class="img-fluid rounded-circle me-2">
+                    <a href="" type="button"><img
+                            src="{{ Auth::user()->getFirstMedia('profile-images') != null? Auth::user()->getFirstMedia('profile-images')->getUrl(): Vite::image('profile-picture-placeholder.png') }}"
+                            alt="" srcset="" style="max-width: 30px;" class="img-fluid rounded-circle me-2">
                         <span>{{ request()->user()->resident->birth->name }}</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         @if (Auth::user()->hasPermissionTo('view.admin.dashboard'))

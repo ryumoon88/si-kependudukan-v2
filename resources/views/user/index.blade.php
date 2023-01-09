@@ -298,7 +298,7 @@
 
 
     <!-- ======= Pricing Section ======= -->
-    <section id="berita" class="berita">
+    {{-- <section id="berita" class="berita">
         <div class="container">
 
             <div class="section-title" data-aos="zoom-out">
@@ -375,7 +375,7 @@
             </div>
 
         </div>
-    </section><!-- End Pricing Section -->
+    </section><!-- End Pricing Section --> --}}
 
     <!-- ======= Team Section ======= -->
     <section id="team" class="team">
@@ -391,7 +391,7 @@
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                     <div class="member" data-aos="fade-up">
                         <div class="member-img">
-                            <img src="{{ Vite::image('team/team-1.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ Vite::image('member (4).png') }}" class="img-fluid" alt="">
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -409,7 +409,7 @@
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                     <div class="member" data-aos="fade-up" data-aos-delay="100">
                         <div class="member-img">
-                            <img src="{{ Vite::image('team/team-2.jpeg') }}" class="img-fluid" alt="">
+                            <img src="{{ Vite::image('member (5).png') }}" class="img-fluid" alt="">
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -427,7 +427,7 @@
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                     <div class="member" data-aos="fade-up" data-aos-delay="200">
                         <div class="member-img">
-                            <img src="{{ Vite::image('team/team-3.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ Vite::image('member (2).png') }}" class="img-fluid" alt="">
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -445,7 +445,7 @@
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                     <div class="member" data-aos="fade-up" data-aos-delay="300">
                         <div class="member-img">
-                            <img src="{{ Vite::image('team/team-3.jpeg') }}" class="img-fluid" alt="">
+                            <img src="{{ Vite::image('member (1).png') }}" class="img-fluid" alt="">
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -455,7 +455,7 @@
                         </div>
                         <div class="member-info">
                             <h4>Nelly Sintia</h4>
-                            <span>.........</span>
+                            <span>Documentation</span>
                         </div>
                     </div>
                 </div>
@@ -463,7 +463,7 @@
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                     <div class="member" data-aos="fade-up" data-aos-delay="200">
                         <div class="member-img">
-                            <img src="{{ Vite::image('team/team-3.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ Vite::image('member (3).png') }}" class="img-fluid" alt="">
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -472,8 +472,8 @@
                             </div>
                         </div>
                         <div class="member-info">
-                            <h4>Ilham</h4>
-                            <span>.........</span>
+                            <h4>Ilham Agus Pratama</h4>
+                            <span>Documentation</span>
                         </div>
                     </div>
                 </div>
@@ -481,7 +481,7 @@
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                     <div class="member" data-aos="fade-up" data-aos-delay="200">
                         <div class="member-img">
-                            <img src="{{ Vite::image('team/team-3.jpg') }}" class="img-fluid" alt="">
+                            <img src="{{ Vite::image('member (6).png') }}" class="img-fluid" alt="">
                             <div class="social">
                                 <a href=""><i class="bi bi-twitter"></i></a>
                                 <a href=""><i class="bi bi-facebook"></i></a>
@@ -491,7 +491,7 @@
                         </div>
                         <div class="member-info">
                             <h4>Rhadi Akhila</h4>
-                            <span>..........</span>
+                            <span>Documentation</span>
                         </div>
                     </div>
                 </div>

@@ -50,13 +50,13 @@ class UserSeeder extends Seeder
 
         // $user->assignRole($superAdmin);
 
-        for ($i = 3; $i <= 98; $i++) {
-            $resident = Resident::find($i);
+        // for ($i = 3; $i <= 98; $i++) {
+        //     $resident = Resident::find($i);
 
-            User::factory()->create([
-                'id_card_number' => $resident->id_card_number,
-                'resident_id' => $resident->id
-            ]);
-        }
+        //     User::factory()->create([
+        //         'id_card_number' => $resident->id_card_number,
+        //         'resident_id' => $resident->id
+        //     ]);
+        // }
     }
 }

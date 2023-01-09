@@ -51,12 +51,14 @@
                                     @endforeach
                                 </ul>
                             </div>
-                            <div class="d-flex justify-content-end">
-                                <a href="{{ route('admin.submission.deny', ['submission' => $submission->ulid]) }}"
-                                    class="btn btn-danger btn-sm me-2">Deny</a>
-                                <a href="{{ route('admin.submission.accept', ['submission' => $submission->ulid]) }}"
-                                    class="btn btn-success btn-sm">Accept</a>
-                            </div>
+                            @if ($submission->status == 'Reviewing')
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('admin.submission.deny', ['submission' => $submission->ulid]) }}"
+                                        class="btn btn-danger btn-sm me-2">Deny</a>
+                                    <a href="{{ route('admin.submission.accept', ['submission' => $submission->ulid]) }}"
+                                        class="btn btn-success btn-sm">Accept</a>
+                                </div>
+                            @endif
 
                         </div>
                     </div>

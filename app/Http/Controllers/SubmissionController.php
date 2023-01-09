@@ -132,6 +132,7 @@ class SubmissionController extends Controller
     public function accept_submission(Submission $submission)
     {
         $submission->update(['status' => 'Accepted', 'accepted_by' => Auth::user()->id, 'accepted_at' => now()]);
+
         return redirect(route('admin.submission.show', ['submission' => $submission->ulid]))->with('alert', ['type' => 'success', 'message' => 'Submission accepted']);
     }
 
