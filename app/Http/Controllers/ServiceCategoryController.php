@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ServiceCategoryDataTable;
 use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ServiceCategoryController extends Controller
 {
@@ -81,6 +82,8 @@ class ServiceCategoryController extends Controller
             'name' => 'required',
             'description' => 'required'
         ]);
+
+        $validatedData['excerpt'] = Str::limit(trim(strip_tags($request->input('description'))), 100);
 
         $serviceCategory->update($validatedData);
         return redirect(route('admin.service.category.show', ['service_category' => $serviceCategory->slug]))->with('alert', ['message' => 'Service category has been updated!', 'type' => 'success']);

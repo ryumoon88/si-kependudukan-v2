@@ -5,8 +5,8 @@ import Isotope from 'isotope-layout';
 import Swiper from 'swiper/swiper-bundle.esm.js';
 import 'quill'
 
-import 'swiper/swiper-bundle.css';
-import 'aos/dist/aos.css';
+// import 'swiper/swiper-bundle.css';
+// import 'aos/dist/aos.css';
 
 window.GLightbox = GLightbox;
 window.Isotope = Isotope;

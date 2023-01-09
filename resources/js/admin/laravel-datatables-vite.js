@@ -7,7 +7,7 @@ import 'datatables.net-responsive-bs5';
 import './dataTables.buttons.js';
 import './dataTables.renderers.js';
 
-window.jQuery = window.$ = $
+// window.jQuery = window.$ = $
 window.DataTable = DataTable;
 
 $.extend(true, DataTable.defaults, {

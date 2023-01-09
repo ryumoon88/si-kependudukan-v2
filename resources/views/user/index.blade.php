@@ -201,17 +201,28 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="icon-box" data-aos="zoom-in-left">
-                        <div class="icon"><i class="bi bi-briefcase" style="color: #ff689b;"></i></div>
-                        <h4 class="title"><a href="/pengajuan">Penerbitan KTP</a></h4>
-                        <p class="description">Layanan penerbitan dokumen KTP-El bagi yang belum pernah memiliki
-                            KTP El (baru perekaman), hilang atau rusak/patah/tidak terbaca.
-                            Layanan ini tanpa PERUBAHAN DATA PADA ELEMEN KTP-El. Jika sudah selesai dicetak KTP El
-                            diambil di Dukcapil Ogan Ilir.</p>
+                @foreach ($service_categories as $service_category)
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="icon-box" data-aos="zoom-in-left">
+                            <div class="icon"><i class="bi bi-briefcase" style="color: #ff689b;"></i></div>
+                            <h4 class="title"><a
+                                    href="{{ route('user.service.index', ['category' => $service_category->slug]) }}">{{ $service_category->name }}</a>
+                            </h4>
+                            {{-- <p class="description">Layanan penerbitan dokumen KTP-El bagi yang belum pernah memiliki
+                                KTP El (baru perekaman), hilang atau rusak/patah/tidak terbaca.
+                                Layanan ini tanpa PERUBAHAN DATA PADA ELEMEN KTP-El. Jika sudah selesai dicetak KTP El
+                                diambil di Dukcapil Ogan Ilir.</p> --}}
+                            <p class="description">
+                                {{ Str::limit($service_category->description, 300) }}
+                            </p>
+                        </div>
                     </div>
+                @endforeach
+                <div class="text-center">
+                    <a href="{{ route('user.service.index') }}" class="btn btn-primary" data-aos="zoom-in">View
+                        more</a>
                 </div>
-                <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
+                {{-- <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
                     <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="100">
                         <div class="icon"><i class="bi bi-book" style="color: #e9bf06;"></i></div>
                         <h4 class="title"><a href="">Penerbitan Akta Kelahiran</a></h4>
@@ -279,7 +290,7 @@
                         <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                             officia deserunt mollit anim id est laborum</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         </div>

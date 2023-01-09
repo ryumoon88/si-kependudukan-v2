@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticateController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResidentBirthController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\ServiceCategoryController;
@@ -8,8 +9,11 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceHasRequirementController;
 use App\Http\Controllers\ServiceRequirementController;
 use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
-use App\Models\Submission;
+use App\Http\Controllers\UserHomeController;
+use App\Http\Controllers\UserServiceCategoryController;
+use App\Http\Controllers\UserServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,32 +28,46 @@ use Illuminate\Support\Facades\Route;
 */
 
 #region User
-Route::get('/', function () {
-    return view('user.index');
-})->name('user.index');
+Route::group(['as' => 'user.'], function () {
+    Route::get('/', [UserHomeController::class, 'index'])->name('index');
 
-#region Authentication
-Route::group(['as' => 'user.auth.'], function () {
-    Route::get('/login', [AuthenticateController::class, 'login'])->name('login');
-    Route::post('/authenticate', [AuthenticateController::class, 'authenticate'])->name('authenticate');
-    Route::post('/logout', [AuthenticateController::class, 'logout'])->name('logout');
-    Route::get('/register', [AuthenticateController::class, 'register'])->name('register');
-    Route::post('/register', [AuthenticateController::class, 'validates'])->name('validate');
-    Route::post('/register/success', [AuthenticateController::class, 'registered'])->name('registered');
-});
+    #region Authentication
+    Route::group(['as' => 'auth.'], function () {
+        Route::group(['middleware' => 'auth'], function () {
+            Route::post('/logout', [AuthenticateController::class, 'logout'])->name('logout')->middleware('auth');
+        });
 
-Route::get('/pengajuan', function () {
-    return view('user.pengajuan.index');
+        Route::group(['middleware' => 'guest'], function () {
+            Route::get('/register', [AuthenticateController::class, 'register'])->name('register');
+            Route::post('/register', [AuthenticateController::class, 'validates'])->name('validate');
+            Route::post('/register/success', [AuthenticateController::class, 'registered'])->name('registered');
+            Route::post('/authenticate', [AuthenticateController::class, 'authenticate'])->name('authenticate');
+            Route::get('/login', [AuthenticateController::class, 'login'])->name('login');
+        });
+    });
+
+
+    #endregion
+
+    // Route::resource('service-category', UserServiceCategoryController::class)
+    //     ->names('service-category')
+    //     ->only(['index']);
+
+    Route::resource('service', UserServiceController::class)->names('service')->only(['index']);
+
+    // Route::resource('service', UserServiceController::class)
+    //     ->names('service')
+    //     ->only(['index']);
+
+    Route::group(['middleware' => 'auth'], function () {
+        Route::resource('submission', SubmissionController::class)->names('submission')->only(['create', 'index', 'store']);
+
+        Route::post('uploads', [UploadController::class, 'upload'])->name('upload');
+    });
 });
 Route::get('/berita', function () {
     return view('user.berita.perlu');
 })->name('user.berita.index');
-#endregion
-
-Route::group([], function () {
-    Route::resource('submission', SubmissionController::class)->names('user.submission');
-});
-
 #endregion
 
 #region Admin
@@ -61,6 +79,7 @@ Route::group(['prefix' => 'a', 'as' => 'admin.', 'middleware' => 'permission:vie
             ->parameter('birth', 'resident-birth')
             ->scoped(['resident_birth' => 'ulid'])
             ->names('birth');
+
 
         Route::resource('registered', ResidentController::class)
             ->parameter('registered', 'resident')
@@ -91,5 +110,9 @@ Route::group(['prefix' => 'a', 'as' => 'admin.', 'middleware' => 'permission:vie
     Route::resource('submission', SubmissionController::class)
         ->scoped(['submission' => 'ulid'])
         ->only(['show', 'index']);
+
+    Route::resource('profile', ProfileController::class)
+        ->parameter('profile', 'user')
+        ->scoped(['user' => 'ulid']);
 });
 #endregion

@@ -17,19 +17,23 @@ class ServiceRequirementSeeder extends Seeder
     {
         ServiceRequirement::factory()->create([
             'name' => "Foto Kartu Keluarga (KK)",
-            'need_file' => true
+            'type' => 'file'
         ]);
         ServiceRequirement::factory()->create([
             'name' => "Foto Selfie",
-            'need_file' => true
+            'type' => 'file'
         ]);
         ServiceRequirement::factory()->create([
             'name' => "Foto KTP",
-            'need_file' => true
+            'type' => 'file'
         ]);
         ServiceRequirement::factory()->create([
             'name' => "Surat Keterangan Hilang (dari kepolisian)",
-            'need_file' => true
+            'type' => 'file'
         ]);
+        // ServiceRequirement::factory()->create([
+        //     'name' => 'Umur diatas 18 tahun',
+        //     'need_file' => false
+        // ]);
     }
 }

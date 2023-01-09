@@ -5,7 +5,7 @@
             <div class="card-body w-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="card-title">Registered Resident</div>
-                    <div><a href="" class="btn btn-primary btn-sm px-3">New</a>
+                    <div><a href="{{ route('admin.resident.registered.create') }}" class="btn btn-primary btn-sm px-3">New</a>
                         {{-- <div><a href="{{ route('admin.dashboard.resident.create') }}" class="btn btn-primary btn-sm px-3">New</a> --}}
                     </div>
                 </div>

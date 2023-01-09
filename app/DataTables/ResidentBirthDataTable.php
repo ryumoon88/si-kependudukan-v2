@@ -31,8 +31,11 @@ class ResidentBirthDataTable extends DataTable
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="' . route('admin.resident.birth.show', ['resident_birth' => $data->ulid]) . '">Details</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                        <li><a class="dropdown-item" href="' . route('admin.resident.birth.edit', ['resident_birth' => $data->ulid]) . '">Edit</a></li>
+                        <li><form action="' . route('admin.resident.birth.destroy', ['resident_birth' => $data->ulid]) . '" method="POST" id="delete-form">
+                            <input type="hidden" name="_token" value="' . csrf_token() . '">
+                            <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn dropdown-item">Delete</button></form></li>
                     </ul>
                 </div>';
             })

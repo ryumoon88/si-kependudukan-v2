@@ -8,6 +8,7 @@ use App\Models\ServiceCategory;
 use App\Models\ServiceRequirement;
 use Illuminate\Http\Request;
 use SebastianBergmann\Comparator\Comparator;
+use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
@@ -72,7 +73,7 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $sided = false;
-        $requirements = ServiceRequirement::all()->whereNotIn('id', $service->requirements->pluck('service_requirement_id')->toArray())->whereNotIn('service_id', $service->id);
+        $requirements = ServiceRequirement::all()->whereNotIn('id', $service->requirements->pluck('id')->toArray())->whereNotIn('service_id', $service->id);
         $categories = ServiceCategory::all();
         return view('admin.service.service.edit', compact('service', 'sided', 'requirements', 'categories'));
     }
@@ -92,6 +93,8 @@ class ServiceController extends Controller
             'description' => 'required'
         ]);
 
+        $validatedData['excerpt'] = Str::limit(trim(strip_tags($request->input('description'))), 100);
+
         $service->update($validatedData);
         return redirect(route('admin.service.service.show', ['service' => $service->slug]))->with('alert', ['message' => 'Service has been updated!', 'type' => 'success']);
     }
@@ -106,5 +109,10 @@ class ServiceController extends Controller
     {
         $service->delete();
         return redirect(route('admin.service.service.index'))->with('alert', ['type' => 'success', 'message' => "Service has been deleted!"]);
+    }
+
+    public function data()
+    {
+        return json_encode(Service::all());
     }
 }

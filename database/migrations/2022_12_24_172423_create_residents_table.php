@@ -28,11 +28,12 @@ return new class extends Migration
             $table->enum('blood_type', ['A', 'B', 'AB', 'O']);
             $table->string('address');
             $table->ulid('ulid');
-            $table->foreignIdFor(Province::class);
-            $table->foreignIdFor(City::class);
-            $table->foreignIdFor(District::class);
-            $table->foreignIdFor(Village::class);
-            $table->timestamps();
+            $table->foreignIdFor(Province::class)->nullable();
+            $table->foreignIdFor(City::class)->nullable();
+            $table->foreignIdFor(District::class)->nullable();
+            $table->foreignIdFor(Village::class)->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 

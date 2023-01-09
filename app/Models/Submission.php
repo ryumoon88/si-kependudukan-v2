@@ -14,7 +14,7 @@ class Submission extends Model implements HasMedia
 
     protected $guarded = [];
 
-    protected $casts = ['created_at' => 'date:d M Y'];
+    protected $casts = ['created_at' => 'date:d M Y H:i:s'];
 
     public $with = ['submitter', 'service', 'serviceCategory'];
 
