@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
 
             ServiceCategorySeeder::class,
             ServiceSeeder::class,
-
             ServiceRequirementSeeder::class,
             ServiceHasRequirementSeeder::class,
 

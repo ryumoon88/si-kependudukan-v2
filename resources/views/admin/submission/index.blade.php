@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body w-100">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="card-title">Service Requirement</div>
+                    <div class="card-title">Submission</div>
                     <div class="d-flex justify-content-end">
                         <div class="input-group input-group-sm mb-3">
                             <label class="input-group-text" for="statusFilter">Status Filter</label>

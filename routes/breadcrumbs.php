@@ -136,6 +136,10 @@ Breadcrumbs::for('user.auth.login', function (BreadcrumbTrail $trail) {
     $trail->parent('user.index');
     $trail->push('Login', route('user.auth.login'));
 });
+Breadcrumbs::for('user.auth.register', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.index');
+    $trail->push('Register', route('user.auth.register'));
+});
 
 Breadcrumbs::for('user.service-category.index', function (BreadcrumbTrail $trail) {
     $trail->parent('user.index');
@@ -147,13 +151,18 @@ Breadcrumbs::for('user.service.index', function (BreadcrumbTrail $trail) {
     $trail->push('Service');
 });
 
-Breadcrumbs::for('user.submission.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('user.my-submission.index', function (BreadcrumbTrail $trail) {
     $trail->parent('user.index');
-    $trail->push('Submission', route('user.submission.index'));
+    $trail->push('Submission', route('user.my-submission.index'));
 });
 
 Breadcrumbs::for('user.submission.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('user.submission.index');
+    $trail->parent('user.my-submission.index');
     $trail->push('Create', route('user.submission.create'));
+});
+
+Breadcrumbs::for('user.my-submission.show', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.my-submission.index');
+    $trail->push('Detail');
 });
 #endregion

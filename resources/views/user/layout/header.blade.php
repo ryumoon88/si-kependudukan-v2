@@ -30,6 +30,7 @@
                         @if (Auth::user()->hasPermissionTo('view.admin.dashboard'))
                             <li><a href="{{ route('admin.index') }}"> Dashboard</a></li>
                         @endif
+                        <li><a href="{{ route('user.my-submission.index') }}">My Submission</a></li>
                         <li>
                             <form action="{{ route('user.auth.logout') }}" method="post" class="d-flex">
                                 @csrf

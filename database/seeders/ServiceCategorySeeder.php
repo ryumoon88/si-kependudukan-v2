@@ -31,9 +31,5 @@ class ServiceCategorySeeder extends Seeder
             "name" => "Surat Keterangan",
             "slug" => 'surat-keterangan'
         ]);
-        ServiceCategory::factory()->create([
-            "name" => "BPJS",
-            "slug" => 'bpjs'
-        ]);
     }
 }

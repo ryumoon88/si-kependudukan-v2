@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserHomeController;
 use App\Http\Controllers\UserServiceCategoryController;
 use App\Http\Controllers\UserServiceController;
+use App\Http\Controllers\UserSubmissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,8 +46,6 @@ Route::group(['as' => 'user.'], function () {
             Route::get('/login', [AuthenticateController::class, 'login'])->name('login');
         });
     });
-
-
     #endregion
 
     // Route::resource('service-category', UserServiceCategoryController::class)
@@ -60,8 +59,10 @@ Route::group(['as' => 'user.'], function () {
     //     ->only(['index']);
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::resource('submission', SubmissionController::class)->names('submission')->only(['create', 'index', 'store']);
-
+        Route::resource('submission', SubmissionController::class)->names('submission')->only(['create', 'store']);
+        Route::resource('my-submission', UserSubmissionController::class)->names('my-submission')
+            ->parameter('my-submission', 'submission')
+            ->scoped(['submission' => 'ulid']);
         Route::post('uploads', [UploadController::class, 'upload'])->name('upload');
     });
 });
@@ -111,8 +112,11 @@ Route::group(['prefix' => 'a', 'as' => 'admin.', 'middleware' => 'permission:vie
         ->scoped(['submission' => 'ulid'])
         ->only(['show', 'index']);
 
-    Route::resource('profile', ProfileController::class)
-        ->parameter('profile', 'user')
-        ->scoped(['user' => 'ulid']);
+    Route::patch('profile/change-password', [ProfileController::class, 'change_password'])->name('profile.change-password');
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::patch('profile/update', [ProfileController::class, 'index'])->name('profile.update');
+    // Route::resource('profile', ProfileController::class)
+    //     ->parameter('profile', 'user')
+    //     ->scoped(['user' => 'ulid'])->only(['index', 'update']);
 });
 #endregion

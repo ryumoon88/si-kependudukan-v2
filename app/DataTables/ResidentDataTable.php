@@ -32,7 +32,10 @@ class ResidentDataTable extends DataTable
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="' . route('admin.resident.registered.show', ['resident' => $data->ulid]) . '">Details</a></li>
                         <li><a class="dropdown-item" href="' . route('admin.resident.registered.edit', ['resident' => $data->ulid]) . '">Edit</a></li>
-                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                        <li><form action="' . route('admin.resident.registered.destroy', ['resident' => $data->ulid]) . '" method="POST" id="delete-form">
+                            <input type="hidden" name="_token" value="' . csrf_token() . '">
+                            <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn dropdown-item">Delete</button></form></li>
                     </ul>
                 </div>';
             });

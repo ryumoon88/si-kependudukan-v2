@@ -50,11 +50,6 @@ class ServiceSeeder extends Seeder
 
         Service::factory()->create([
             "service_category_id" => 4,
-            "name" => "Keramaian",
-            "slug" => "keramaian"
-        ]);
-        Service::factory()->create([
-            "service_category_id" => 4,
             "name" => "Kematian",
             "slug" => "kematian"
         ]);
@@ -63,16 +58,16 @@ class ServiceSeeder extends Seeder
             "name" => "Pindah Datang",
             "slug" => "pindah-datang"
         ]);
-        Service::factory()->create([
-            "service_category_id" => 4,
-            "name" => "Pindah WNA",
-            "slug" => "pindah-wna"
-        ]);
+        // Service::factory()->create([
+        //     "service_category_id" => 4,
+        //     "name" => "Pindah WNA",
+        //     "slug" => "pindah-wna"
+        // ]);
 
-        Service::factory()->create([
-            "service_category_id" => 5,
-            "name" => "Update Data",
-            "slug" => "update-data"
-        ]);
+        // Service::factory()->create([
+        //     "service_category_id" => 5,
+        //     "name" => "Update Data",
+        //     "slug" => "update-data"
+        // ]);
     }
 }

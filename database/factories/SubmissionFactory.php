@@ -20,7 +20,7 @@ class SubmissionFactory extends Factory
     {
         return [
             'submitter_id' => rand(3, 100),
-            'service_id' => rand(1, 11),
+            'service_id' => rand(1, 8),
             'ulid' => Ulid::generate(now())
         ];
     }
