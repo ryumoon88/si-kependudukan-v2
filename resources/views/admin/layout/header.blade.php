@@ -15,7 +15,7 @@
 
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
 
             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                 <i class="bi bi-bell"></i>
@@ -154,7 +154,7 @@
 
             </ul><!-- End Messages Dropdown Items -->
 
-        </li><!-- End Messages Nav -->
+        </li><!-- End Messages Nav --> --}}
 
         <li class="nav-item dropdown pe-3">
 
@@ -171,6 +171,12 @@
                 </li>
                 <li>
                     <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('user.index') }}">
+                        <i class="bi bi-house-door"></i>
+                        <span>Home Page</span>
+                    </a>
                 </li>
                 <li>
                     <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.profile.index') }}">

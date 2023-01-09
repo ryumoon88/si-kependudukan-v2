@@ -74,6 +74,10 @@ Route::get('/berita', function () {
 #region Admin
 Route::group(['prefix' => 'a', 'as' => 'admin.', 'middleware' => 'permission:view.admin.dashboard'], function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
+    // Route::get('/index2', function () {
+    //     $sided = false;
+    //     return view('admin.index2', compact('sided'));
+    // })->name('index2');
 
     Route::group(['prefix' => 'resident', 'as' => 'resident.'], function () {
         Route::resource('birth', ResidentBirthController::class)

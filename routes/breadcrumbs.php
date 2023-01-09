@@ -140,6 +140,10 @@ Breadcrumbs::for('user.auth.register', function (BreadcrumbTrail $trail) {
     $trail->parent('user.index');
     $trail->push('Register', route('user.auth.register'));
 });
+Breadcrumbs::for('user.auth.validate', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.index');
+    $trail->push('Validation', route('user.auth.validate'));
+});
 
 Breadcrumbs::for('user.service-category.index', function (BreadcrumbTrail $trail) {
     $trail->parent('user.index');
@@ -164,5 +168,12 @@ Breadcrumbs::for('user.submission.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('user.my-submission.show', function (BreadcrumbTrail $trail) {
     $trail->parent('user.my-submission.index');
     $trail->push('Detail');
+});
+#endregion
+
+#region tmp
+Breadcrumbs::for('admin.index2', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.index');
+    // $trail->push('Detail');
 });
 #endregion

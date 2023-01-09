@@ -93,7 +93,7 @@
                             class="form-control @error('mother_name')
                         is-invalid
                     @enderror"
-                            id="mother_name" placeholder="Tanggal Lahir">
+                            id="mother_name" placeholder="Nama Ibu">
                         @error('mother_name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror

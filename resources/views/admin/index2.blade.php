@@ -10,7 +10,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div class="ps-3">
-                            <h6>{{ $resident_birth_count }}</h6>
+                            <h6>100</h6>
                             {{-- <span class="text-success small pt-1 fw-bold">100%</span> --}}
                             {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
 
@@ -29,7 +29,7 @@
                             <i class="bi bi-people"></i>
                         </div>
                         <div class="ps-3">
-                            <h6>{{ $resident_count }}</h6>
+                            <h6>100</h6>
                             {{-- <span class="text-success small pt-1 fw-bold">100%</span> --}}
                             {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
 
@@ -48,7 +48,7 @@
                             <i class="bi bi-file-arrow-down"></i>
                         </div>
                         <div class="ps-3">
-                            <h6>{{ $submission_count }}</h6>
+                            <h6>100</h6>
                         </div>
                     </div>
                 </div>
@@ -61,28 +61,17 @@
             <div class="card card-info">
                 <div class="card-body">
                     <h5 class="card-title">Latest Submission</h5>
-                    <table class="table table-borderless">
-                        <thead class="table-primary">
+                    <table class="table table-borderless table-primary">
+                        <thead>
                             <th style="width: 0px">#</th>
                             <th>Submitter</th>
                             <th>Service</th>
                             <th>Created At</th>
-                            <th>Action</th>
                         </thead>
                         <tbody>
-                            @foreach ($latestSubmission as $submission)
-                                <tr>
-                                    <td class="fw-bold">{{ $loop->iteration }}</td>
-                                    <td>{{ $submission->submitter->name }}</td>
-                                    <td>{{ $submission->serviceCategory->name }}: {{ $submission->serviceCategory->name }}
-                                    </td>
-                                    <td>{{ $submission->created_at }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.submission.show', ['submission' => $submission->ulid]) }}"
-                                            class="btn btn-sm btn-primary">Detail</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            <tr>
+                                
+                            </tr>
                         </tbody>
                     </table>
                 </div>
