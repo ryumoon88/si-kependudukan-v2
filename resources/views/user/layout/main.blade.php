@@ -36,7 +36,7 @@
         @include('user.layout.hero')
     @endif
 
-    <main id="main">
+    <main id="main" style="min-height: 100vh;">
         @if (!Route::is('user.index'))
             {{ Breadcrumbs::view('partials.user-breadcrumb') }}
         @endif

@@ -31,6 +31,15 @@ class ServiceRequirementSeeder extends Seeder
             'name' => "Surat Keterangan Hilang (dari kepolisian)",
             'type' => 'file'
         ]);
+        ServiceRequirement::factory()->create([
+            'name' => "Akta Kelahiran",
+            'type' => 'file'
+        ]);
+        ServiceRequirement::factory()->create([
+            'name' => "Surat Pernyataan Pindah",
+            'type' => 'file'
+        ]);
+
         // ServiceRequirement::factory()->create([
         //     'name' => 'Umur diatas 18 tahun',
         //     'need_file' => false

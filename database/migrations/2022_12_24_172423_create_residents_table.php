@@ -34,6 +34,8 @@ return new class extends Migration
             $table->foreignIdFor(Village::class)->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            // $table->foreign('resident_birth_id')->references('id')->on('resident_births')->cascadeOnDelete();
         });
     }
 

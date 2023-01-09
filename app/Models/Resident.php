@@ -17,4 +17,9 @@ class Resident extends Model
     {
         return $this->belongsTo(ResidentBirth::class, 'resident_birth_id')->withDefault(null);
     }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class, 'submitter_id');
+    }
 }

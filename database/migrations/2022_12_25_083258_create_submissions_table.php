@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignIdFor(Resident::class, 'submitter_id');
             $table->foreignIdFor(Service::class);
             $table->enum('status', ['Reviewing', 'Denied', 'Accepted']);
-            $table->foreignIdFor(User::class, 'accepted_by')->nullable()->default(null);
+            $table->foreignIdFor(User::class, 'accepted_by')->nullable();
             $table->dateTime('accepted_at')->nullable();
             $table->ulid('ulid');
             $table->timestamps();
